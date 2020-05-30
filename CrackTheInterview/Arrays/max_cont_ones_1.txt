@@ -1,0 +1,50 @@
+#include <iostream>
+#include <vector>
+#include <climits>
+using namespace std;
+
+void max_continuous_ones(vector<int> A, int n, int flips_count)
+{
+    int i = 0, j = 0, start_index = 0, maxlen = INT_MIN;
+
+    while (i < n && j < n)
+    {
+        // flipping zeroes encountered and then updating maximum length
+        while (j < n && (A[j] == 1 || flips_count > 0))
+        {
+            if (A[j] == 0)
+                flips_count--;
+            j++;
+        }
+
+        int len = j - i;
+        if (maxlen < len)
+        {
+            start_index = i;
+            maxlen = len;
+        }
+
+        // moving to next starting point leaving one zero and therefore incrementing flips_count by 1
+        while (i < n && A[i] == 1)
+            i++;
+        i++;
+        flips_count++;
+    }
+
+    cout << start_index << " " << start_index + maxlen - 1;
+    return;
+}
+
+int main()
+{
+    int n, k, temp;
+    cin >> n >> k;
+    vector<int> inp_vec;
+    for (int i = 0; i < n; i++)
+    {
+        cin >> temp;
+        inp_vec.push_back(temp);
+    }
+    max_continuous_ones(inp_vec, n, k);
+    return 0;
+}

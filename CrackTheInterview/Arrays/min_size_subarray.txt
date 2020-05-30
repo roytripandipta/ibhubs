@@ -1,0 +1,82 @@
+#include<bits/stdc++.h>
+
+using namespace std ;
+
+int main()
+{
+    int n ; 
+    cin >> n ; 
+    int arr[n] ; 
+
+    int maxValue = INT_MIN ; 
+    for(int i = 0 ; i < n ; i++)
+    {
+        cin >> arr[i] ; 
+        
+    }
+    int startIndex = -1 ; 
+    int i = 1 ; 
+    while(i < n)
+    {
+        if(arr[i] < arr[i-1])
+        {
+            startIndex = i-1 ; 
+            break ; 
+        }
+        i++ ; 
+    }
+    int minValue = INT_MAX ; 
+    
+    int endIndex = -1;
+    int j = n - 1 ; 
+    while(j >= 0)
+    {
+        if(arr[j] < arr[j-1])
+        {
+            endIndex = j ;
+            break;
+        }
+        j--;
+    }
+    j++;
+    
+    for(int i = startIndex ; i < endIndex ; i++)
+    {
+        maxValue = max(maxValue, arr[i]) ; 
+         
+        
+    }
+    
+    
+    if(endIndex >= startIndex)
+    {
+        while(j < n)
+        {
+            if(maxValue > arr[j])
+            endIndex = j ; 
+            j++;
+        }
+    }
+    for(int i = startIndex ; i < endIndex ; i++)
+    {
+        minValue = min(minValue, arr[i]) ; 
+         
+    }
+    int k = 0 ;
+    while(k < startIndex)
+    {
+        if(arr[k] > minValue)
+        {
+            startIndex = k ; 
+            break ; 
+        }
+        k++;
+    }
+    if(startIndex == -1)
+    cout << "-1" ; 
+    else
+    cout << startIndex << " " << endIndex ; 
+    
+    return 0 ; 
+    
+}

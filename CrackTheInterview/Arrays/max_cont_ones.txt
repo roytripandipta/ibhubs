@@ -1,0 +1,60 @@
+#include<bits/stdc++.h>
+
+using namespace std ; 
+
+int main()
+{
+    int n , flip ; 
+    cin >> n >> flip ; 
+    
+    int arr[n] ;
+    for(int i = 0 ; i < n ; i++)
+    {
+        cin >> arr[i] ; 
+    }
+    int startIndex = 0 , endIndex , flipIndex ; 
+    int i = 0 ; 
+    
+    int max_count = INT_MIN , count ;
+    int k = 0 ; 
+    int start , end ; 
+    while(i < n)
+    {
+        if(arr[i] == 0)
+        {
+            flipIndex = i ; 
+            ++k ; 
+        }
+        if(k > flip)
+        {
+            endIndex = i-1 ; 
+            count = endIndex - startIndex + 1 ; 
+            if(count > max_count)
+            {
+                max_count = count ; 
+                start = startIndex ; 
+                end = endIndex ; 
+            }
+            k = 0 ; 
+            startIndex = flipIndex + 1 ; 
+        }
+        if(i == n-1)
+        {
+            if(k <= flip)
+            endIndex = i ;
+           
+            count = endIndex - startIndex + 1 ; 
+            if(count > max_count)
+            {
+                max_count = count ;
+                start = startIndex ; 
+                end = endIndex ; 
+            }
+            
+        }
+        i++;
+    }
+    cout << start << " " << end ; 
+    
+    return 0 ; 
+}

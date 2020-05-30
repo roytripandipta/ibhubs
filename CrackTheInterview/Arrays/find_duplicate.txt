@@ -1,0 +1,45 @@
+#include<bits/stdc++.h>
+
+using namespace std ;
+int duplicate(int arr[], int n)
+{
+    int min_num = INT_MAX ; 
+    int i = 1 ;
+    bool flag = false ; 
+    if(n == 1)
+    return -1; 
+    else
+    {
+        while(i < n)
+        {
+            if(arr[i] == arr[i-1])
+            {
+                int number = arr[i] ; 
+                if(number < min_num)
+                min_num = number ; 
+                flag = true ; 
+            }
+            i++;
+        }
+    }
+    if(flag)
+    return min_num ; 
+    else
+    return -1 ; 
+}
+
+int main()
+{
+    int n ; 
+    cin >> n ;
+    int arr[n] ; 
+    for(int i = 0 ; i < n ; i++)
+    {
+        cin >> arr[i] ; 
+    }
+    sort(arr,arr+n) ; 
+    int num = duplicate(arr,n) ; 
+    cout << num ; 
+    
+    return 0 ; 
+}

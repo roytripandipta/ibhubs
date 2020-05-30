@@ -1,0 +1,102 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+void set_zeroes(vector<vector<int>> matrix, int row_count, int col_count)
+{
+    bool zero_in_first_row = false, zero_in_first_col = false;
+
+    // Does first row have zero?
+    for (int j = 0; j < col_count; ++j)
+    {
+        if (matrix[0][j] == 0)
+        {
+            zero_in_first_row = true;
+            break;
+        }
+    }
+
+    // Does first column have zero?
+    for (int i = 0; i < row_count; ++i)
+    {
+        if (matrix[i][0] == 0)
+        {
+            zero_in_first_col = true;
+            break;
+        }
+    }
+
+    // find zeroes and store the info in first row and first column
+    for (int i = 1; i < row_count; ++i)
+    {
+        for (int j = 1; j < col_count; ++j)
+        {
+            if (matrix[i][j] == 0)
+            {
+                matrix[i][0] = 0;
+                matrix[0][j] = 0;
+            }
+        }
+    }
+
+    // set zeroes except the first row and first column
+    for (int i = 1; i < row_count; ++i)
+    {
+        for (int j = 1; j < col_count; ++j)
+        {
+            if (matrix[i][0] == 0 || matrix[0][j] == 0)
+                matrix[i][j] = 0;
+        }
+    }
+    // set zeroes for first row if needed
+    if (zero_in_first_row)
+    {
+        for (int j = 0; j < col_count; ++j)
+        {
+            matrix[0][j] = 0;
+        }
+    }
+    // set zeroes for first column if needed
+    if (zero_in_first_col)
+    {
+        for (int i = 0; i < row_count; ++i)
+        {
+            matrix[i][0] = 0;
+        }
+    }
+    // prints updated matrix
+    for (int i = 0; i < matrix.size(); i++)
+    {
+        for (int j = 0; j < matrix[i].size(); j++)
+        {
+            if (j < matrix[i].size() - 1)
+                cout << matrix[i][j] << " ";
+            else
+                cout << matrix[i][j];
+        }
+        if (i < matrix.size() - 1)
+            cout << "\n";
+    }
+    return;
+}
+
+int main()
+{
+    int m, n;
+    cin >> m >> n;
+
+    vector<int> col(n, 0);
+    vector<vector<int>> matrix(m, col);
+
+    for (int i = 0; i < m; i++)
+    {
+        for (int j = 0; j < n; j++)
+        {
+            cin >> matrix[i][j];
+        }
+    }
+
+    set_zeroes(matrix, m, n);
+
+    return 0;
+}

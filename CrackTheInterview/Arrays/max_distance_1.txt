@@ -1,0 +1,41 @@
+#include <iostream>
+#include <algorithm>
+#include <vector>
+using namespace std;
+
+int maximum_distance(vector<int> &vec, int len)
+{
+    vector<pair<int, int>> sorted;
+    for (int i = 0; i < vec.size(); i++)
+    {
+        sorted.push_back(pair<int, int>(vec[i], i));
+    }
+
+    sort(sorted.begin(), sorted.end());
+    int maxIndex = sorted[len - 1].second, ans = 0;
+
+    for (int i = len - 2; i >= 0; i--)
+    {
+        ans = max(ans, maxIndex - sorted[i].second);
+        maxIndex = max(maxIndex, sorted[i].second);
+    }
+    if (ans)
+        return ans;
+    return -1;
+}
+
+int main()
+{
+    int n, temp;
+    cin >> n;
+    vector<int> inp_vec;
+    for (int i = 0; i < n; i++)
+    {
+        cin >> temp;
+        inp_vec.push_back(temp);
+    }
+
+    cout << maximum_distance(inp_vec, n);
+
+    return 0;
+}

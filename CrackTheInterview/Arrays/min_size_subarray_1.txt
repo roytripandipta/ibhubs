@@ -1,0 +1,63 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+void min_subarray_to_sort(vector<int> &A, int n)
+{
+    if (n == 1)
+    {
+        cout << -1;
+        return;
+    }
+
+    int start_index = 0, end_index = n - 1;
+    while (start_index < n - 1 && A[start_index] <= A[start_index + 1])
+    {
+        start_index++;
+    }
+    while (end_index > 0 && A[end_index] >= A[end_index - 1])
+    {
+        end_index--;
+    }
+
+    // if array is already sorted
+    if (start_index > end_index)
+    {
+        cout << -1;
+        return;
+    }
+
+    int min_val = A[start_index], max_val = A[start_index];
+    for (int k = start_index; k <= end_index; k++)
+    {
+        max_val = max(max_val, A[k]);
+        min_val = min(min_val, A[k]);
+    }
+
+    while (start_index >= 0 && A[start_index] > min_val)
+    {
+        start_index--;
+    }
+    while (end_index < n && A[end_index] < max_val)
+    {
+        end_index++;
+    }
+
+    cout << start_index + 1 << " " << end_index - 1;
+
+    return;
+}
+
+int main()
+{
+    int n, temp;
+    cin >> n;
+    vector<int> inp_vec;
+    for (int i = 0; i < n; i++)
+    {
+        cin >> temp;
+        inp_vec.push_back(temp);
+    }
+    min_subarray_to_sort(inp_vec, n);
+    return 0;
+}

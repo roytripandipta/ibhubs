@@ -1,0 +1,53 @@
+#include<bits/stdc++.h>
+
+using namespace std ; 
+
+int main()
+{
+    int m , n ; 
+    cin >> m >> n ; 
+    int arr[m][n] ; 
+    
+    vector<int> rowIndex , colIndex ; 
+    
+    for(int i = 0 ; i < m ; i++)
+    {
+        for(int j = 0 ; j < n ; j++)
+        {
+            int x ; 
+            cin >> x ; 
+            arr[i][j] = x ; 
+            if(x == 0)
+            {
+                if(find(rowIndex.begin(), rowIndex.end(),i) == rowIndex.end())
+                rowIndex.push_back(i) ; 
+                if(find(colIndex.begin(),colIndex.end(), j) == colIndex.end())
+                colIndex.push_back(j) ;
+            }
+        }
+    }
+    for(int i = 0 ; i < rowIndex.size() ; i++)
+    {
+        for(int j = 0 ; j < n ; j++)
+        {
+            arr[rowIndex[i]][j] = 0 ;
+        }
+    }
+    for(int i = 0 ; i < colIndex.size() ; i++)
+    {
+        for(int j = 0 ; j < m ; j++)
+        {
+            arr[j][colIndex[i]] = 0 ;
+        }
+    }
+    
+    for(int i = 0 ; i < m ; i++)
+    {
+        for(int j = 0 ; j < n ; j++)
+        {
+            printf(j == n-1 ? "%d" : "%d ", arr[i][j]) ; 
+        }
+        cout << '\n' ; 
+    }
+    return 0 ; 
+}

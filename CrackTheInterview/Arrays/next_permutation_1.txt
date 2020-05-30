@@ -1,0 +1,60 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+void next_permutation(vector<int> &vec)
+{
+    int i, j;
+    int n = vec.size();
+
+    for (i = n - 2; i >= 0; i--)
+    {
+        if (vec[i] < vec[i + 1])
+            break;
+    }
+
+    // if all the elements are in non-increasing order
+    if (i == -1)
+    {
+        reverse(vec.begin(), vec.end());
+        return;
+    }
+
+    for (j = n - 1; j > i; j--)
+    {
+        if (vec[j] > vec[i])
+            break;
+    }
+
+    swap(vec[j], vec[i]);
+
+    /* after the swap, the subarray from i to the end would be in non-increasing order.
+        So we reverse it to make the subarray minimum. */
+    reverse(vec.begin() + i + 1, vec.end());
+
+    return;
+}
+
+int main()
+{
+    int n, temp;
+    cin >> n;
+    vector<int> inp_vec;
+    for (int i = 0; i < n; i++)
+    {
+        cin >> temp;
+        inp_vec.push_back(temp);
+    }
+
+    next_permutation(inp_vec);
+
+    // prints elements of inp_vec
+    for (int i = 0; i < n; i++)
+        if (i == n - 1)
+            cout << inp_vec[i];
+        else
+            cout << inp_vec[i] << " ";
+
+    return 0;
+}
